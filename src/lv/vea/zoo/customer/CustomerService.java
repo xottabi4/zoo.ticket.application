@@ -7,7 +7,7 @@ import java.util.Optional;
 public class CustomerService {
 
     /**
-     * This list with customers is for service demonstration porpoise only.
+     * This list with customers is for service demonstration purpose only.
      * In real app queries should be performed to DB.
      */
     private static final List<Customer> customerList;
