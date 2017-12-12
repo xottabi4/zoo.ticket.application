@@ -1,4 +1,4 @@
-package lv.vea.zoo;
+package lv.vea.zoo.ticket;
 
 import java.math.BigDecimal;
 
@@ -12,8 +12,8 @@ public class TicketService {
 
     public Ticket createNewTicket(final String zone) {
         BigDecimal ticketBasePrice = priceStorage.determineTicketPrice(zone);
-        Ticket ticket = new Ticket(zone, ticketBasePrice);
-        // here goes call to method that saves ticket to DB
+        final Ticket ticket = new Ticket(zone, ticketBasePrice);
+        // here should go call to method, that saves ticket to DB
         return ticket;
     }
 

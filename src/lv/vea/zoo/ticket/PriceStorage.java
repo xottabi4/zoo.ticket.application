@@ -1,4 +1,4 @@
-package lv.vea.zoo;
+package lv.vea.zoo.ticket;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

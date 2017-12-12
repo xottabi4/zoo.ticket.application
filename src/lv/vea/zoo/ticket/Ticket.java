@@ -1,4 +1,4 @@
-package lv.vea.zoo;
+package lv.vea.zoo.ticket;
 
 import java.math.BigDecimal;
 
@@ -9,6 +9,8 @@ public class Ticket {
     private String zone;
 
     private BigDecimal price;
+
+    private boolean expired;
 
     public Ticket(final String zone, final BigDecimal price) {
         this.zone = zone;
@@ -37,5 +39,13 @@ public class Ticket {
 
     public void setPrice(final BigDecimal price) {
         this.price = price;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(final boolean expired) {
+        this.expired = expired;
     }
 }
