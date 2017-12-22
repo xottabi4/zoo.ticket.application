@@ -13,6 +13,8 @@ seniors, students, persons with a disability.
 6) implemnt UI to display visitors and active tickets
 7) add DAO to applications business logic.
 
-In progress
+In progress:
+
   Arturs:
+  
   3) add sqlLite DB to app
