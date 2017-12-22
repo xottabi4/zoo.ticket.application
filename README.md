@@ -5,8 +5,7 @@ Implemented:
   
 Backlog:
 1) PR wants vouchers with discounts 10, 15, 20 % to use with tickets.
-2) Differentiate tickets to include tickets for: adults, school-age children, pre-school- aged children,
-seniors, students, persons with a disability.
+
 
 4) implement Visitor controller
 5) implement Ticket controller
@@ -15,6 +14,8 @@ seniors, students, persons with a disability.
 
 In progress:
 
-  Arturs:
-  
-  3) add sqlLite DB to app
+  Arturs:2) Differentiate tickets to include tickets for: adults, school-age children, pre-school- aged children,
+seniors, students, persons with a disability.
+
+Done: 
+  3) add H2 DB to app
