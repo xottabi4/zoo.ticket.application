@@ -1,27 +1,44 @@
 package lv.vea.zoo.shop.ticket;
 
-import java.math.BigDecimal;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "ticket")
 public class Ticket {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
+    @Column(name = "zone")
     private String zone;
 
-    private BigDecimal price;
+    @Column(name = "price")
+    private String price;
 
-    private boolean expired;
+    @Column(name = "expired")
+    private Boolean expired;
 
-    public Ticket(final String zone, final BigDecimal price) {
+    public Ticket() {
+        this.expired = false;
+    }
+
+    public Ticket(final String zone, final String price) {
+        this();
         this.zone = zone;
         this.price = price;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(final long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -33,19 +50,19 @@ public class Ticket {
         this.zone = zone;
     }
 
-    public BigDecimal getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(final BigDecimal price) {
+    public void setPrice(final String price) {
         this.price = price;
     }
 
-    public boolean isExpired() {
+    public Boolean isExpired() {
         return expired;
     }
 
-    public void setExpired(final boolean expired) {
+    public void setExpired(final Boolean expired) {
         this.expired = expired;
     }
 }
