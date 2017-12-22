@@ -1,9 +1,12 @@
-package lv.vea.zoo.ticket;
+package lv.vea.zoo.shop.ticket;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class PriceStorage {
 
     private static final Map<String, BigDecimal> zoneBasePrices = createMap();

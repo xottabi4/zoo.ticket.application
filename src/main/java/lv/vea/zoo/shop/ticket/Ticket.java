@@ -1,4 +1,4 @@
-package lv.vea.zoo.ticket;
+package lv.vea.zoo.shop.ticket;
 
 import java.math.BigDecimal;
 

@@ -1,11 +1,16 @@
-package lv.vea.zoo.ticket;
+package lv.vea.zoo.shop.ticket;
 
 import java.math.BigDecimal;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class TicketService {
 
     private PriceStorage priceStorage;
 
+    @Autowired
     public TicketService(final PriceStorage priceStorage) {
         this.priceStorage = priceStorage;
     }

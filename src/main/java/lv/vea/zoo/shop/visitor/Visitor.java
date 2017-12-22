@@ -1,11 +1,11 @@
-package lv.vea.zoo.customer;
+package lv.vea.zoo.shop.visitor;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import lv.vea.zoo.ticket.Ticket;
+import lv.vea.zoo.shop.ticket.Ticket;
 
-public class Customer {
+public class Visitor {
 
     private long id;
 
@@ -19,11 +19,11 @@ public class Customer {
 
     private boolean activated;
 
-    public Customer() {
+    public Visitor() {
         this.activated = true;
     }
 
-    public Customer(final String name, final String surname, final int age) {
+    public Visitor(final String name, final String surname, final int age) {
         this();
         this.name = name;
         this.surname = surname;
