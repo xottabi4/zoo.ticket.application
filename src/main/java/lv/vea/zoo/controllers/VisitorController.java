@@ -49,5 +49,15 @@ public class VisitorController {
 	@RequestMapping(value="/visitor/{id}/delete", method=RequestMethod.GET)
 	public void deleteVisitor(@PathVariable Long id) {
 		visitorRepository.delete(id);
-	}
+    }
+    
+    @RequestMapping(value="/createVisitor/{name}/{surname}/{age}", method=RequestMethod.GET)
+	public ResponseEntity createVisitor(
+            @PathVariable("name") final String name,
+            @PathVariable("surname") final String surname, 
+            @PathVariable("age") final int age) {
+                System.out.println("?????????????????");
+                visitorRepository.save(new Visitor(name, surname, age));
+                return new ResponseEntity(HttpStatus.OK);
+    }
 }
