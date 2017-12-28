@@ -20,7 +20,7 @@ public class TicketController {
     @Autowired
     private TicketRepository ticketRepository;
 
-    @RequestMapping(value = "/ticket", method = RequestMethod.GET)
+    @RequestMapping(value = "/ticket", method = RequestMethod.POST)
     public ResponseEntity addTicket(@RequestParam("zone") final String zone,
             @RequestParam("price") final String price) {
         ticketRepository.save(new Ticket(zone, price));
