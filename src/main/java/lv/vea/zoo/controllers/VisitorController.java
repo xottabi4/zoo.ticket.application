@@ -6,6 +6,7 @@ import lv.vea.zoo.shop.dao.VisitorRepository;
 import lv.vea.zoo.shop.visitor.Visitor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,22 +42,21 @@ public class VisitorController {
         return visitors;
     }
 
-	@RequestMapping(value = "/visitor/{id}", method = RequestMethod.GET )
+	@RequestMapping(value = "/visitors/{id}", method = RequestMethod.GET )
 	public Visitor getById(@PathVariable Long id){
 		return visitorRepository.findOne(id);
     }
     
-	@RequestMapping(value="/visitor/{id}/delete", method=RequestMethod.GET)
+	@RequestMapping(value="/visitors/{id}/delete", method=RequestMethod.GET)
 	public void deleteVisitor(@PathVariable Long id) {
 		visitorRepository.delete(id);
     }
     
-    @RequestMapping(value="/createVisitor/{name}/{surname}/{age}", method=RequestMethod.GET)
+    @RequestMapping(value="/createvisitor/{name}/{surname}/{age}", method=RequestMethod.GET)
 	public ResponseEntity createVisitor(
             @PathVariable("name") final String name,
             @PathVariable("surname") final String surname, 
             @PathVariable("age") final int age) {
-                System.out.println("?????????????????");
                 visitorRepository.save(new Visitor(name, surname, age));
                 return new ResponseEntity(HttpStatus.OK);
     }
