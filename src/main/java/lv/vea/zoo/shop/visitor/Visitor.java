@@ -44,7 +44,7 @@ public class Visitor {
         this.age = age;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
