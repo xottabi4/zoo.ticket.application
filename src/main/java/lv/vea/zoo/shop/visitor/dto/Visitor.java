@@ -1,40 +1,57 @@
-package lv.vea.zoo.shop.visitor;
+package lv.vea.zoo.shop.visitor.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.LinkedList;
 import java.util.List;
 
-import lv.vea.zoo.shop.ticket.Ticket;
+import lv.vea.zoo.shop.ticket.dto.Ticket;
 
+@Entity
+@Table(name = "visitor")
 public class Visitor {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "surname")
     private String surname;
 
-    private int age;
+    @Column(name = "age")
+    private Long age;
 
+    @Column(name = "ticketsBought")
+    @OneToMany(mappedBy = "visitor")
     private List<Ticket> ticketsBought;
 
-    private boolean activated;
+    @Column(name = "activated")
+    private Boolean activated;
 
     public Visitor() {
         this.activated = true;
     }
 
-    public Visitor(final String name, final String surname, final int age) {
+    public Visitor(final String name, final String surname, final Long age) {
         this();
         this.name = name;
         this.surname = surname;
         this.age = age;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(final long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -54,12 +71,16 @@ public class Visitor {
         this.surname = surname;
     }
 
-    public int getAge() {
+    public Long getAge() {
         return age;
     }
 
-    public void setAge(final int age) {
+    public void setAge(final Long age) {
         this.age = age;
+    }
+
+    public Boolean getActivated() {
+        return activated;
     }
 
     public List<Ticket> getTicketsBought() {
@@ -73,11 +94,13 @@ public class Visitor {
         this.ticketsBought = ticketsBought;
     }
 
-    public boolean isActivated() {
+    public Boolean isActivated() {
         return activated;
     }
 
-    public void setActivated(final boolean activated) {
+    public void setActivated(final Boolean activated) {
         this.activated = activated;
     }
+
+
 }
