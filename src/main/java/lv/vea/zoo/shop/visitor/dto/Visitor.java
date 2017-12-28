@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lv.vea.zoo.shop.ticket.dto.Ticket;
 
 @Entity
@@ -29,10 +30,12 @@ public class Visitor {
     @Column(name = "age")
     private Long age;
 
+    @JsonIgnore
     @Column(name = "ticketsBought")
     @OneToMany(mappedBy = "visitor")
     private List<Ticket> ticketsBought;
 
+    @JsonIgnore
     @Column(name = "activated")
     private Boolean activated;
 

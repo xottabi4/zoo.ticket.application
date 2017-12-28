@@ -38,5 +38,7 @@ out/
 .classpath
 .project
 
-#DB file
+#DB files
 /H2.mv.db
+/H2.trace.db
+/backup.sql

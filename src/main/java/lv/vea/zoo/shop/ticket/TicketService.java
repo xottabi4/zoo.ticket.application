@@ -1,6 +1,8 @@
 package lv.vea.zoo.shop.ticket;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 
 import lv.vea.zoo.shop.dao.TicketRepository;
 import lv.vea.zoo.shop.ticket.dto.Ticket;
@@ -27,5 +29,9 @@ public class TicketService {
         final Ticket ticket = new Ticket(zone, finalTicketPrice, visitor);
         ticketRepository.save(ticket);
         return ticket;
+    }
+
+    public List<Ticket> getAllActiveTickets() {
+        return ticketRepository.findAllActiveTickets(LocalDate.now());
     }
 }

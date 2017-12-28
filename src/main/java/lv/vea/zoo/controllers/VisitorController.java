@@ -1,6 +1,9 @@
 package lv.vea.zoo.controllers;
 
+import java.util.List;
+
 import lv.vea.zoo.shop.Shop;
+import lv.vea.zoo.shop.visitor.dto.Visitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +30,10 @@ public class VisitorController {
             @RequestParam("age") final Long age) {
         shop.createNewVisitor(name, surname, age);
         return new ResponseEntity("Successfully created visitor", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/listAll", method = RequestMethod.GET)
+    public List<Visitor> listAllVisitors() {
+        return shop.getAllVisitors();
     }
 }

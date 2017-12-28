@@ -1,6 +1,9 @@
 package lv.vea.zoo.controllers;
 
+import java.util.List;
+
 import lv.vea.zoo.shop.Shop;
+import lv.vea.zoo.shop.ticket.dto.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +24,15 @@ public class TicketController {
     }
 
     @RequestMapping(value = "/sell", method = RequestMethod.POST)
-    public ResponseEntity sellTIcket(
+    public ResponseEntity sellTickets(
             @RequestParam("visitorId") final Long visitorId,
             @RequestParam("zone") final String zone) {
         shop.sellTicket(visitorId, zone);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/listAllActive", method = RequestMethod.GET)
+    public List<Ticket> listAllActiveTickets() {
+        return  shop.getAllActiveTickets();
     }
 }

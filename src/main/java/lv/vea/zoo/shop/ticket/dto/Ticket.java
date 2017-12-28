@@ -9,8 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lv.vea.zoo.shop.visitor.dto.Visitor;
 
 @Entity
@@ -28,17 +29,18 @@ public class Ticket {
     private BigDecimal price;
 
     @Column(name = "dateBought")
-    private LocalDateTime dateBought;
+    private LocalDate dateBought;
 
     @Column(name = "dateUsed")
-    private LocalDateTime dateUsed;
+    private LocalDate dateUsed;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "visitor_id", nullable = false)
     private Visitor visitor;
 
     public Ticket() {
-        this.dateBought = LocalDateTime.now();
+        this.dateBought = LocalDate.now();
     }
 
     public Ticket(final String zone, final BigDecimal price, final Visitor visitor) {
@@ -72,15 +74,15 @@ public class Ticket {
         this.price = price;
     }
 
-    public LocalDateTime getDateBought() {
+    public LocalDate getDateBought() {
         return dateBought;
     }
 
-    public LocalDateTime getDateUsed() {
+    public LocalDate getDateUsed() {
         return dateUsed;
     }
 
     public void useTicket() {
-        this.dateUsed = LocalDateTime.now();
+        this.dateUsed = LocalDate.now();
     }
 }

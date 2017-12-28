@@ -1,5 +1,7 @@
 package lv.vea.zoo.shop;
 
+import java.util.List;
+
 import lv.vea.zoo.shop.ticket.TicketService;
 import lv.vea.zoo.shop.ticket.dto.Ticket;
 import lv.vea.zoo.shop.visitor.VisitorRepository;
@@ -29,5 +31,14 @@ public class Shop {
     public void createNewVisitor(final String name, final String surname, final Long age) {
         final Visitor visitor = new Visitor(name, surname, age);
         visitorRepository.save(visitor);
+    }
+
+    public List<Visitor> getAllVisitors() {
+        return (List<Visitor>) visitorRepository.findAll();
+
+    }
+
+    public List<Ticket> getAllActiveTickets() {
+        return ticketService.getAllActiveTickets();
     }
 }
