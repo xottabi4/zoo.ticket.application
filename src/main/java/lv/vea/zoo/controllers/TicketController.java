@@ -36,8 +36,7 @@ public class TicketController {
 
     @RequestMapping(value = "/tickets", method = RequestMethod.GET)
     public List<Ticket> getAllTickets() {
-        List<Ticket> tickets = (List<Ticket>) ticketRepository.findAll();
-        return tickets;
+        return (List<Ticket>) ticketRepository.findAll();
     }
 
     @RequestMapping(value = "/createticket/{zone}/{price}", method = RequestMethod.GET)

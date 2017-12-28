@@ -2,12 +2,18 @@
 
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Columns;
+
 import lv.vea.zoo.shop.ticket.Ticket;
 
 @Entity
@@ -27,8 +33,9 @@ public class Visitor {
     @Column(name = "age")
     private int age;
 
-    //@Column(name = "tickets")
-    //private List<Ticket> ticketsBought;
+    @ElementCollection
+    @Column(name = "ticketsBought")
+    private List<Ticket> ticketsBought;
 
     @Column(name = "activated")
     private boolean activated;
@@ -42,6 +49,13 @@ public class Visitor {
         this.name = name;
         this.surname = surname;
         this.age = age;
+    }
+
+    public boolean addTicket(Ticket ticket){
+        if (ticketsBought == null) {
+            ticketsBought = new LinkedList<Ticket>();
+        }
+        return ticketsBought.add(ticket);
     }
 
     public Long getId() {
@@ -76,17 +90,23 @@ public class Visitor {
         this.age = age;
     }
 
+    public List<Ticket> addTicket() {
+        if (ticketsBought == null) {
+            ticketsBought = new LinkedList<Ticket>();
+        }
+        return ticketsBought;
+    }
+
     public List<Ticket> getTicketsBought() {
-        //if (ticketsBought == null) {
-        //    ticketsBought = new LinkedList<Ticket>();
-        //}
-        //return ticketsBought;
-        return new LinkedList<Ticket>();
+        if (ticketsBought == null) {
+            ticketsBought = new LinkedList<Ticket>();
+        }
+        return ticketsBought;
     }
     
 
     public void setTicketsBought(final List<Ticket> ticketsBought) {
-        //this.ticketsBought = ticketsBought;
+        this.ticketsBought = ticketsBought;
     }
     
 

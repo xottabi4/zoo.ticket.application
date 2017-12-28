@@ -2,7 +2,9 @@ package lv.vea.zoo.controllers;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import lv.vea.zoo.shop.dao.TicketRepository;
 import lv.vea.zoo.shop.dao.VisitorRepository;
+import lv.vea.zoo.shop.ticket.Ticket;
 import lv.vea.zoo.shop.visitor.Visitor;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class VisitorController {
 
     @Autowired
     private VisitorRepository visitorRepository;
+    @Autowired
+    private TicketController ticketController = new TicketController();
     
     @RequestMapping(value = "/allvisitors", method = RequestMethod.GET)
     public List<String> getAllVisitors() {
@@ -59,5 +63,19 @@ public class VisitorController {
             @PathVariable("age") final int age) {
                 visitorRepository.save(new Visitor(name, surname, age));
                 return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/visitors/{id}/addticket", method = RequestMethod.GET)
+    public List<Ticket> getTickets() {   
+            return ticketController.getAllTickets();
+    }
+
+    @RequestMapping(value = "/visitors/{id1}/addticket/{id2}", method = RequestMethod.GET)
+    public void addTicket(
+            @PathVariable("id1") final Long id1, 
+            @PathVariable("id2") final Long id2) {
+            Visitor temp = this.getById(id1);
+            temp.addTicket(ticketController.getById(id2));
+            visitorRepository.save(temp);  
     }
 }
