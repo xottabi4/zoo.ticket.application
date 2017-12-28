@@ -44,6 +44,10 @@ public class VisitorController {
 	@RequestMapping(value = "/visitor/{id}", method = RequestMethod.GET )
 	public Visitor getById(@PathVariable Long id){
 		return visitorRepository.findOne(id);
+    }
+    
+	@RequestMapping(value="/visitor/{id}/delete", method=RequestMethod.GET)
+	public void deleteVisitor(@PathVariable Long id) {
+		visitorRepository.delete(id);
 	}
-
 }
