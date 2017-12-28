@@ -8,6 +8,7 @@ import lv.vea.zoo.shop.visitor.Visitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,5 +33,17 @@ public class VisitorController {
             @RequestParam("age") final int age) {
                 visitorRepository.save(new Visitor(name, surname, age));
                 return new ResponseEntity(HttpStatus.OK);
-            }
+    }
+
+    @RequestMapping(value = "/visitors", method = RequestMethod.GET)
+    public List<Visitor> getAllVisitorsFullInfo() {
+        List<Visitor> visitors = (List<Visitor>) visitorRepository.findAll();
+        return visitors;
+    }
+
+	@RequestMapping(value = "/visitor/{id}", method = RequestMethod.GET )
+	public Visitor getById(@PathVariable Long id){
+		return visitorRepository.findOne(id);
+	}
+
 }
