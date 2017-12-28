@@ -1,22 +1,36 @@
-package lv.vea.zoo.shop.visitor;
+ package lv.vea.zoo.shop.visitor;
 
 import java.util.LinkedList;
 import java.util.List;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lv.vea.zoo.shop.ticket.Ticket;
 
+@Entity
+@Table(name = "visitor")
 public class Visitor {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "surname")
     private String surname;
 
+    @Column(name = "age")
     private int age;
 
-    private List<Ticket> ticketsBought;
+    //@Column(name = "tickets")
+    //private List<Ticket> ticketsBought;
 
+    @Column(name = "activated")
     private boolean activated;
 
     public Visitor() {
@@ -63,15 +77,18 @@ public class Visitor {
     }
 
     public List<Ticket> getTicketsBought() {
-        if (ticketsBought == null) {
-            ticketsBought = new LinkedList<>();
-        }
-        return ticketsBought;
+        //if (ticketsBought == null) {
+        //    ticketsBought = new LinkedList<Ticket>();
+        //}
+        //return ticketsBought;
+        return new LinkedList<Ticket>();
     }
+    
 
     public void setTicketsBought(final List<Ticket> ticketsBought) {
-        this.ticketsBought = ticketsBought;
+        //this.ticketsBought = ticketsBought;
     }
+    
 
     public boolean isActivated() {
         return activated;
