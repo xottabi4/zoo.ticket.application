@@ -35,7 +35,14 @@ public class Shop {
 
     public List<Visitor> getAllVisitors() {
         return (List<Visitor>) visitorRepository.findAll();
+    }
 
+    public Visitor getVisitor(Long id){
+        return (Visitor) visitorRepository.findOne(id);
+    }
+
+    public void deleteVisitor(Long id){
+        visitorRepository.delete(id);
     }
 
     public List<Ticket> getAllActiveTickets() {
