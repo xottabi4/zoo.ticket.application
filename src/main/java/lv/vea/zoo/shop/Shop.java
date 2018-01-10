@@ -1,11 +1,14 @@
 package lv.vea.zoo.shop;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import lv.vea.zoo.shop.ticket.TicketService;
 import lv.vea.zoo.shop.ticket.dto.Ticket;
 import lv.vea.zoo.shop.visitor.VisitorRepository;
 import lv.vea.zoo.shop.visitor.dto.Visitor;
+import lv.vea.zoo.shop.voucher.VoucherRepository;
+import lv.vea.zoo.shop.voucher.dto.Voucher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +18,31 @@ public class Shop {
     private TicketService ticketService;
 
     private VisitorRepository visitorRepository;
+    private VoucherRepository voucherRepository;
 
     @Autowired
-    public Shop(final TicketService ticketService, final VisitorRepository visitorRepository) {
+    public Shop(final TicketService ticketService, 
+                final VisitorRepository visitorRepository, 
+                final VoucherRepository voucherRepository) {
         this.ticketService = ticketService;
         this.visitorRepository = visitorRepository;
+        this.voucherRepository = voucherRepository;
+
     }
 
     public void sellTicket(final long customerId, final String ticketZone) {
         final Visitor visitor = visitorRepository.findOne(customerId);
         final Ticket ticket = ticketService.createNewTicket(ticketZone, visitor);
         visitor.getTicketsBought().add(ticket);
+    }
+
+    public void createVoucher(BigDecimal percentage){
+        final Voucher voucher = new Voucher(percentage);
+        voucherRepository.save(voucher);
+    }
+
+    public List<Voucher> getAllVouchers(){
+        return (List<Voucher>) voucherRepository.findAll();
     }
 
     public void createNewVisitor(final String name, final String surname, final Long age) {
