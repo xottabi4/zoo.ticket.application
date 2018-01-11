@@ -104,6 +104,4 @@ public class Visitor {
     public void setActivated(final Boolean activated) {
         this.activated = activated;
     }
-
-
 }
