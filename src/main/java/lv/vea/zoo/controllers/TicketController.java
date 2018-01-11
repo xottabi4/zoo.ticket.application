@@ -46,6 +46,15 @@ public class TicketController {
         return new ResponseEntity("Ticket Sold",HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/sell/{id}/{zone}/usingVoucher/{voucherId}", method = RequestMethod.GET)
+    public ResponseEntity sellTicketsWithVoucherUsingPathVariable(
+            @PathVariable("id") final Long visitorId,
+            @PathVariable("zone") final String zone,
+            @PathVariable("voucherId") final Long voucherId) {
+        shop.sellTicket(visitorId, zone, voucherId);
+        return new ResponseEntity("Ticket Sold",HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/listAllActive", method = RequestMethod.GET)
     public List<Ticket> listAllActiveTickets() {
         return  shop.getAllActiveTickets();

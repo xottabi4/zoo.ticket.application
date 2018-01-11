@@ -36,6 +36,18 @@ public class Shop {
         visitor.getTicketsBought().add(ticket);
     }
 
+    public void sellTicket(final long customerId, final String ticketZone, final long voucherId) {
+        final Visitor visitor = visitorRepository.findOne(customerId);
+        final Ticket ticket = ticketService.createNewTicket(ticketZone, visitor);
+        visitor.getTicketsBought().add(ticket);
+    }
+
+    public void giveVoucher(final long customerId, final BigDecimal discount) {
+        final Visitor visitor = visitorRepository.findOne(customerId);
+        final Voucher voucher = voucherRepository.save(new Voucher(discount, visitor));
+        visitor.getVouchers().add(voucher);
+    }
+
     public void createVoucher(BigDecimal percentage){
         final Voucher voucher = new Voucher(percentage);
         voucherRepository.save(voucher);

@@ -25,6 +25,14 @@ public class VoucherController {
         this.shop = shop;
     }
 
+    @RequestMapping(value = "/give/{id}/{discount}", method = RequestMethod.GET)
+    public ResponseEntity giveVoucherUsingPathVariable(
+            @PathVariable("id") final Long visitorId,
+            @PathVariable("discount") final BigDecimal discount) {
+        shop.giveVoucher(visitorId, discount);
+        return new ResponseEntity("Voucher Given",HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/create/{percentage}", method = RequestMethod.GET)
     public ResponseEntity createVoucher(
             @PathVariable("percentage") final Double percentage){

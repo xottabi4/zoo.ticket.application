@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lv.vea.zoo.shop.ticket.dto.Ticket;
+import lv.vea.zoo.shop.voucher.dto.Voucher;
 
 @Entity
 @Table(name = "visitor")
@@ -34,6 +35,11 @@ public class Visitor {
     @Column(name = "ticketsBought")
     @OneToMany(mappedBy = "visitor")
     private List<Ticket> ticketsBought;
+
+    @JsonIgnore
+    @Column(name = "vouchers")
+    @OneToMany(mappedBy = "visitor")
+    private List<Voucher> vouchers;
 
     @JsonIgnore
     @Column(name = "activated")
@@ -91,6 +97,25 @@ public class Visitor {
             ticketsBought = new LinkedList<>();
         }
         return ticketsBought;
+    }
+
+    public List<Voucher> getVouchers() {
+        if (vouchers == null) {
+            vouchers = new LinkedList<>();
+        }
+        return vouchers;
+    }
+
+    public Voucher getVoucher(Long voucherId) {
+        if (vouchers == null) {
+            vouchers = new LinkedList<>();
+        }
+        for(int i = 0; i < vouchers.size(); i++){
+            if(vouchers.get(i).getId() == voucherId){
+                return vouchers.get(i);
+            }
+        }
+        return null;
     }
 
     public void setTicketsBought(final List<Ticket> ticketsBought) {

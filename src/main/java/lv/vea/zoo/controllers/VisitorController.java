@@ -5,6 +5,8 @@ import java.util.List;
 import lv.vea.zoo.shop.Shop;
 import lv.vea.zoo.shop.ticket.dto.Ticket;
 import lv.vea.zoo.shop.visitor.dto.Visitor;
+import lv.vea.zoo.shop.voucher.dto.Voucher;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +58,11 @@ public class VisitorController {
     @RequestMapping(value = "/listAll/{id}/tickets", method = RequestMethod.GET)
     public List<Ticket> listVisitorTickets(@PathVariable("id") Long id) {
         return shop.getVisitor(id).getTicketsBought();
+    }
+
+    @RequestMapping(value = "/listAll/{id}/vouchers", method = RequestMethod.GET)
+    public List<Voucher> listVisitorVouchers(@PathVariable("id") Long id) {
+        return shop.getVisitor(id).getVouchers();
     }
 
     @RequestMapping(value = "/listAll/{id}/delete", method = RequestMethod.GET)

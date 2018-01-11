@@ -50,6 +50,13 @@ public class Ticket {
         this.visitor = visitor;
     }
 
+    public Ticket(final String zone, final BigDecimal price, final Visitor visitor, long voucherId) {
+        this();
+        this.zone = zone;
+        this.price = price.multiply(visitor.getVoucher(voucherId).getDiscountPercentage());
+        this.visitor = visitor;
+    }
+
     public Long getId() {
         return id;
     }

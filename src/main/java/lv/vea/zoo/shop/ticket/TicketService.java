@@ -8,6 +8,8 @@ import java.util.Map;
 import lv.vea.zoo.shop.dao.TicketRepository;
 import lv.vea.zoo.shop.ticket.dto.Ticket;
 import lv.vea.zoo.shop.visitor.dto.Visitor;
+import lv.vea.zoo.shop.voucher.dto.Voucher;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,17 @@ public class TicketService {
         final BigDecimal ticketBasePrice = priceStorage.determineTicketBasePrice(zone);
         final BigDecimal finalTicketPrice = priceStorage.discountPriceBasedOnAge(ticketBasePrice, visitor.getAge());
         final Ticket ticket = new Ticket(zone, finalTicketPrice, visitor);
+        ticketRepository.save(ticket);
+        return ticket;
+    }
+
+    public Ticket createNewTicket(final String zone, final Visitor visitor, long voucherId) {
+        if(visitor.getVoucher(voucherId)==null){
+            throw new RuntimeException("Voucher with such ID not found: ");
+        }
+        final BigDecimal ticketBasePrice = priceStorage.determineTicketBasePrice(zone);
+        final BigDecimal finalTicketPrice = priceStorage.discountPriceBasedOnAge(ticketBasePrice, visitor.getAge());
+        final Ticket ticket = new Ticket(zone, finalTicketPrice, visitor, voucherId);
         ticketRepository.save(ticket);
         return ticket;
     }
