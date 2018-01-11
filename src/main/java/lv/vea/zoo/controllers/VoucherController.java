@@ -28,7 +28,7 @@ public class VoucherController {
     @RequestMapping(value = "/create/{percentage}", method = RequestMethod.GET)
     public ResponseEntity createVoucher(
             @PathVariable("percentage") final Double percentage){
-        // percentage/100 = converts to %. Change is needed
+        // percentage/100 = converts to %. Change might be needed
         shop.createVoucher(new BigDecimal(percentage/100));
         return new ResponseEntity("Voucher successfully created",HttpStatus.OK);
     }
