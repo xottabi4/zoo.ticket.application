@@ -3,6 +3,7 @@ package lv.vea.zoo.shop.ticket;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import lv.vea.zoo.shop.dao.TicketRepository;
 import lv.vea.zoo.shop.ticket.dto.Ticket;
@@ -21,6 +22,10 @@ public class TicketService {
     public TicketService(final PriceStorage priceStorage, final TicketRepository ticketRepository) {
         this.priceStorage = priceStorage;
         this.ticketRepository = ticketRepository;
+    }
+
+    public Map<String,BigDecimal> getZoneBaseInfo(){
+        return priceStorage.getZoneBaseInfo();
     }
 
     public Ticket createNewTicket(final String zone, final Visitor visitor) {

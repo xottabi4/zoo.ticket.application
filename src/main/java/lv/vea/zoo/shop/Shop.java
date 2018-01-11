@@ -2,7 +2,7 @@ package lv.vea.zoo.shop;
 
 import java.math.BigDecimal;
 import java.util.List;
-
+import java.util.Map;
 import lv.vea.zoo.shop.ticket.TicketService;
 import lv.vea.zoo.shop.ticket.dto.Ticket;
 import lv.vea.zoo.shop.visitor.VisitorRepository;
@@ -43,6 +43,10 @@ public class Shop {
 
     public List<Voucher> getAllVouchers(){
         return (List<Voucher>) voucherRepository.findAll();
+    }
+
+    public Map<String,BigDecimal> getZoneBaseInfo(){
+        return (Map<String, BigDecimal>) ticketService.getZoneBaseInfo();
     }
 
     public void createNewVisitor(final String name, final String surname, final Long age) {

@@ -40,6 +40,10 @@ public class PriceStorage {
         return zoneBasePrices.get(zone);
     }
 
+    public static Map<String, BigDecimal> getZoneBaseInfo(){
+        return zoneBasePrices;
+    }
+
     public BigDecimal discountPriceBasedOnAge(final BigDecimal ticketBasePrice, final Long age) {
         final BigDecimal discountPrecentage;
         if (age < 6) {

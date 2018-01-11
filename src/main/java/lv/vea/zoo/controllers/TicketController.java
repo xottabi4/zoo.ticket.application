@@ -1,7 +1,8 @@
 package lv.vea.zoo.controllers;
 
+import java.math.BigDecimal;
 import java.util.List;
-
+import java.util.Map;
 import lv.vea.zoo.shop.Shop;
 import lv.vea.zoo.shop.ticket.dto.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ public class TicketController {
     @Autowired
     public TicketController(final Shop shop) {
         this.shop = shop;
+    }
+
+    @RequestMapping(value = "/listZones", method = RequestMethod.GET)
+    public Map<String, BigDecimal> getZoneBaseInfo(){
+        return shop.getZoneBaseInfo();
     }
 
     @RequestMapping(value = "/sell", method = RequestMethod.POST)
