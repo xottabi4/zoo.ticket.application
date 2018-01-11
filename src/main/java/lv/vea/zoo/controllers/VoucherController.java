@@ -26,14 +26,26 @@ public class VoucherController {
     }
 
     @RequestMapping(value = "/create/{percentage}", method = RequestMethod.GET)
-    public ResponseEntity giveVouchers(
-            @PathVariable("percentage") final BigDecimal percentage){
-        shop.createVoucher(percentage);
+    public ResponseEntity createVoucher(
+            @PathVariable("percentage") final Double percentage){
+        // percentage/100 = converts to %. Change is needed
+        shop.createVoucher(new BigDecimal(percentage/100));
         return new ResponseEntity("Voucher successfully created",HttpStatus.OK);
     }
 
     @RequestMapping(value = "/listAll", method = RequestMethod.GET)
     public List<Voucher> getAllVouchers(){
         return (List<Voucher>) shop.getAllVouchers();
+    }
+
+    @RequestMapping(value = "/listAll/{id}/delete", method = RequestMethod.GET)
+    public ResponseEntity deleteVoucher(@PathVariable("id") Long id) {
+        shop.deleteVoucher(id);
+        return new ResponseEntity("Successfully deleted voucher", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/listAll/{id}", method = RequestMethod.GET)
+    public Voucher listVoucher(@PathVariable("id") Long id) {
+        return shop.getVoucher(id);
     }
 }

@@ -48,7 +48,7 @@ public class VisitorController {
     }
 
     @RequestMapping(value = "/listAll/{id}", method = RequestMethod.GET)
-    public Visitor listAllVisitors(@PathVariable("id") Long id) {
+    public Visitor listVisitor(@PathVariable("id") Long id) {
         return shop.getVisitor(id);
     }
 

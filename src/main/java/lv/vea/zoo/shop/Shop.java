@@ -58,8 +58,16 @@ public class Shop {
         return (Visitor) visitorRepository.findOne(id);
     }
 
+    public Voucher getVoucher(Long id){
+        return (Voucher) voucherRepository.findOne(id);
+    }
+
     public void deleteVisitor(Long id){
         visitorRepository.delete(id);
+    }
+
+    public void deleteVoucher(Long id){
+        voucherRepository.delete(id);
     }
 
     public List<Ticket> getAllActiveTickets() {
