@@ -60,7 +60,7 @@ public class PriceStorage {
         return ticketBasePrice.subtract(discount);
     }
 
-    private static BigDecimal calculateDiscount(BigDecimal base, BigDecimal pct) {
+    public static BigDecimal calculateDiscount(BigDecimal base, BigDecimal pct) {
         return base.multiply(pct).divide(ONE_HUNDRED);
     }
 }

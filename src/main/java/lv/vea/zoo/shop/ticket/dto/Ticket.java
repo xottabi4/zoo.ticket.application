@@ -1,18 +1,12 @@
 package lv.vea.zoo.shop.ticket.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lv.vea.zoo.shop.visitor.dto.Visitor;
+import lv.vea.zoo.shop.voucher.dto.Voucher;
 
 @Entity
 @Table(name = "ticket")
@@ -39,6 +33,10 @@ public class Ticket {
     @JoinColumn(name = "visitor_id", nullable = false)
     private Visitor visitor;
 
+    @OneToOne
+    @JoinColumn(name = "voucher_id", nullable = true)
+    private Voucher voucher;
+
     public Ticket() {
         this.dateBought = LocalDate.now();
     }
@@ -50,10 +48,12 @@ public class Ticket {
         this.visitor = visitor;
     }
 
-    public Ticket(final String zone, final BigDecimal price, final Visitor visitor, long voucherId) {
+    public Ticket(final String zone, final BigDecimal price, final Visitor visitor,final Voucher voucher) {
         this();
         this.zone = zone;
-        this.price = price.multiply(visitor.getVoucher(voucherId).getDiscountPercentage());
+        this.voucher=voucher;
+
+        this.price = price;
         this.visitor = visitor;
     }
 
@@ -91,5 +91,14 @@ public class Ticket {
 
     public void useTicket() {
         this.dateUsed = LocalDate.now();
+    }
+
+
+    public Voucher getVoucher() {
+        return voucher;
+    }
+
+    public void setVoucher(Voucher voucher) {
+        this.voucher = voucher;
     }
 }

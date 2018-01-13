@@ -21,8 +21,10 @@ public class Voucher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @Column(name = "discountPercentage")
     private BigDecimal discountPercentage;
+
     @Column(name = "expired")
     private boolean expired;
 

@@ -8,6 +8,7 @@ import java.util.Map;
 import lv.vea.zoo.shop.dao.TicketRepository;
 import lv.vea.zoo.shop.ticket.dto.Ticket;
 import lv.vea.zoo.shop.visitor.dto.Visitor;
+import lv.vea.zoo.shop.voucher.VoucherRepository;
 import lv.vea.zoo.shop.voucher.dto.Voucher;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,13 @@ public class TicketService {
 
     private TicketRepository ticketRepository;
 
+    private VoucherRepository voucherRepository;
+
     @Autowired
-    public TicketService(final PriceStorage priceStorage, final TicketRepository ticketRepository) {
+    public TicketService(PriceStorage priceStorage, TicketRepository ticketRepository, VoucherRepository voucherRepository) {
         this.priceStorage = priceStorage;
         this.ticketRepository = ticketRepository;
+        this.voucherRepository = voucherRepository;
     }
 
     public Map<String,BigDecimal> getZoneBaseInfo(){
@@ -39,17 +43,27 @@ public class TicketService {
     }
 
     public Ticket createNewTicket(final String zone, final Visitor visitor, long voucherId) {
-        if(visitor.getVoucher(voucherId)==null){
-            throw new RuntimeException("Voucher with such ID not found: ");
-        }
+        final Voucher voucher = voucherRepository.findAvailableVouchers(voucherId);
+
         final BigDecimal ticketBasePrice = priceStorage.determineTicketBasePrice(zone);
-        final BigDecimal finalTicketPrice = priceStorage.discountPriceBasedOnAge(ticketBasePrice, visitor.getAge());
-        final Ticket ticket = new Ticket(zone, finalTicketPrice, visitor, voucherId);
+        final BigDecimal agediscountedTicketPrice = priceStorage.discountPriceBasedOnAge(ticketBasePrice, visitor.getAge());
+        final BigDecimal finalTicketPrice=PriceStorage.calculateDiscount(agediscountedTicketPrice,voucher.getDiscountPercentage());
+
+        final Ticket ticket = new Ticket(zone, finalTicketPrice, visitor, voucher);
         ticketRepository.save(ticket);
+
+        voucher.setExpired(true);
+        voucherRepository.save(voucher);
         return ticket;
     }
 
     public List<Ticket> getAllActiveTickets() {
         return ticketRepository.findAllActiveTickets(LocalDate.now());
+    }
+
+    public void useTicket(Long ticketId) {
+        Ticket ticket=ticketRepository.findOne(ticketId);
+        ticket.useTicket();
+        ticketRepository.save(ticket);
     }
 }

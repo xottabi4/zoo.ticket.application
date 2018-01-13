@@ -34,24 +34,27 @@ public class Shop {
         final Visitor visitor = visitorRepository.findOne(customerId);
         final Ticket ticket = ticketService.createNewTicket(ticketZone, visitor);
         visitor.getTicketsBought().add(ticket);
+        visitorRepository.save(visitor);
     }
 
     public void sellTicket(final long customerId, final String ticketZone, final long voucherId) {
         final Visitor visitor = visitorRepository.findOne(customerId);
-        final Ticket ticket = ticketService.createNewTicket(ticketZone, visitor);
+        final Ticket ticket = ticketService.createNewTicket(ticketZone, visitor, voucherId);
         visitor.getTicketsBought().add(ticket);
+        visitorRepository.save(visitor);
     }
 
     public void giveVoucher(final long customerId, final BigDecimal discount) {
         final Visitor visitor = visitorRepository.findOne(customerId);
         final Voucher voucher = voucherRepository.save(new Voucher(discount, visitor));
         visitor.getVouchers().add(voucher);
+        visitorRepository.save(visitor);
     }
 
-    public void createVoucher(BigDecimal percentage){
-        final Voucher voucher = new Voucher(percentage);
-        voucherRepository.save(voucher);
-    }
+//    public void createVoucher(BigDecimal percentage){
+//        final Voucher voucher = new Voucher(percentage);
+//        voucherRepository.save(voucher);
+//    }
 
     public List<Voucher> getAllVouchers(){
         return (List<Voucher>) voucherRepository.findAll();
@@ -88,5 +91,9 @@ public class Shop {
 
     public List<Ticket> getAllActiveTickets() {
         return ticketService.getAllActiveTickets();
+    }
+
+    public void useTicket(Long ticketId) {
+        ticketService.useTicket(ticketId);
     }
 }
